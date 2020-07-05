@@ -21,7 +21,7 @@ public class BusinessController{
 
     @ApiResponses(value = { @ApiResponse(code = SC_OK, message = "ok"),
             @ApiResponse(code = SC_BAD_REQUEST, message = "An unexpected error occurred"),
-            @ApiResponse(code = SC_OK, message = "A particular business")
+            @ApiResponse(code = SC_OK, message = "Returns all businesses - not paginated")
     })
     @GetMapping("/business")
     public ResponseEntity<List<Business>> getAllBusinesses(){
@@ -31,11 +31,25 @@ public class BusinessController{
 
     @ApiResponses(value = { @ApiResponse(code = SC_OK, message = "ok"),
             @ApiResponse(code = SC_BAD_REQUEST, message = "An unexpected error occurred"),
+            @ApiResponse(code = SC_OK, message = "Return a businesses")
+    })
+    @GetMapping("/business/id/{businessId}")
+    public ResponseEntity<Business> getBusinessById(@PathVariable("businessId") String businessId){
+        var business = businessService.getOneById(businessId);
+        if(business.isPresent()){
+            return ResponseEntity.ok(business.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @ApiResponses(value = { @ApiResponse(code = SC_OK, message = "ok"),
+            @ApiResponse(code = SC_BAD_REQUEST, message = "An unexpected error occurred"),
             @ApiResponse(code = SC_OK, message = "Return all businesses - not paginated")
     })
-    @GetMapping("/business/{businessId}")
-    public ResponseEntity<Business> getBusiness(@PathVariable("businessId") String businessId){
-        var business = businessService.getOne(businessId);
+    @GetMapping("/business/name/{businessName}")
+    public ResponseEntity<Business> getBusinessByName(@PathVariable("businessName") String businessName){
+        var business = businessService.getOneByName(businessName);
         if(business.isPresent()){
             return ResponseEntity.ok(business.get());
         }else {

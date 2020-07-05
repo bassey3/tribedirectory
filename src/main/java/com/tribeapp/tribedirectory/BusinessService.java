@@ -36,9 +36,13 @@ public class BusinessService{
         var allBusinesses = businessRepo.findAll();
         return allBusinesses;
     }
-    public Optional<Business> getOne (String id){
+    public Optional<Business> getOneById (String id){
         var aBusinesses = businessRepo.findById(id);
         return aBusinesses;
     }
 
+    public Optional<Business> getOneByName (String businessName){
+        var aBusinesses = businessRepo.findByName(businessName);
+        return Optional.ofNullable(aBusinesses);
+    }
 }
