@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -64,6 +65,20 @@ public class BusinessController{
     @PostMapping("/business")
     public ResponseEntity saveBusiness(BusinessDto businessdto){
         if(businessService.create(businessdto)) {
+            return ResponseEntity.noContent().build();
+        }else {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+
+    }
+
+    @ApiResponses(value = { @ApiResponse(code = SC_OK, message = "ok"),
+            @ApiResponse(code = SC_BAD_REQUEST, message = "An unexpected error occurred"),
+            @ApiResponse(code = SC_OK, message = "Save a comment to a business")
+    })
+    @PatchMapping("/business/comments")
+    public ResponseEntity saveComment(CommentDto comment){
+        if(businessService.saveCommentToBusiness(comment)) {
             return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.unprocessableEntity().build();

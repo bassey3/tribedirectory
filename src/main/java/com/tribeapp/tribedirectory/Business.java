@@ -1,5 +1,6 @@
 package com.tribeapp.tribedirectory;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -22,5 +23,7 @@ public class Business{
     String instagramUrl;
     String googleUrl;
     String otherInfo;
+    List<Comment> comments;
+    Integer rating;
 
 }

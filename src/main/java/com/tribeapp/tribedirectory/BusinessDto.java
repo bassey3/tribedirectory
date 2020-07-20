@@ -1,5 +1,6 @@
 package com.tribeapp.tribedirectory;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -17,5 +18,6 @@ public class BusinessDto{
     String instagramUrl;
     String googleUrl;
     String otherInfo;
+    List<CommentDto> comments;
 
 }
